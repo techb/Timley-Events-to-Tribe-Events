@@ -35,7 +35,12 @@ function costConvert($cost){
 // I would reather use $_POST but couldn't get it to work
 // might be a php version issue or something
 $data = json_decode( file_get_contents('php://input') );
-$data->cost = costConvert($data->cost);
+@$data->cost = costConvert($data->cost);
+
+if(empty($data->title)){
+    echo '<img src="https://img.memecdn.com/morphius-404_o_1938383.jpg" >';
+    die();
+}
 
 $my_post = array();
 $start_stamp = $data->start;
