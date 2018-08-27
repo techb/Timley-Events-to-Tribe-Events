@@ -10,7 +10,6 @@ from pprint import pprint
 # Command to copy a database manually, MUCH faster than using phpmyadmin to import it.
 # ~$ mysql  --user=yourmysqlusername --password=yourmysqlpassword  --host=localhost thedatabasename < thedumpfile.sql
 
-
 def hitAPI(payload_dict):
     endpoint = 'http://visitwv.staging.wpengine.com/move-events-api/'
     try:
