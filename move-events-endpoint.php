@@ -117,7 +117,8 @@ $my_post['meta_input'] = array( "ticket_url" => $data->ticket_url,
 $id = tribe_create_event( $my_post );
 
 // spits out to the python console.
-var_dump($my_post);
-var_dump($venue);
-var_dump($contact);
-var_dump($id);
+// var_dump($my_post);
+// var_dump($venue);
+// var_dump($contact);
+// var_dump($id);
+echo "[+] Event Created: ".$id;

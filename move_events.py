@@ -19,13 +19,13 @@ def hitAPI(payload_dict):
 
         return (status, resp)
     except requests.exceptions.Timeout:
-        return (payload_dict['post_id'], "- TIMEOUT")
+        return (payload_dict['post_id'], "[-] TIMEOUT")
 
 def queryDB(sql, getall=True):
-    print('+ Connecting to Database')
+    print('[+] Connecting to Database')
     db = MySQLdb.connect("127.0.0.1", "root", "root", "vswv-prod")
     cursor = db.cursor()
-    print('+ Runnin query: "%s"' % sql)
+    print('[+] Runnin query: "%s"' % sql)
     cursor.execute(sql)
     if getall:
         data = cursor.fetchall()
@@ -104,10 +104,10 @@ events = getAllEvents()
 while len(events) > 0:
     event = events.pop(0)
     res = hitAPI(event)
-    if res[1] == "- TIMEOUT":
+    if res[1] == "[-] TIMEOUT":
         events.append(event)
         print("-"*50)
-        print("TIEMOUT\n")
+        print("[-] TIEMOUT\n")
         print("-"*50)
     else:
         print("+"*50)
