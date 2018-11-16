@@ -11,7 +11,7 @@ from pprint import pprint
 # ~$ mysql  --user=yourmysqlusername --password=yourmysqlpassword  --host=localhost thedatabasename < thedumpfile.sql
 
 def hitAPI(payload_dict):
-    endpoint = 'http://visitwv.staging.wpengine.com/move-events-api/'
+    endpoint = 'http://visitwv.staging.wpengine.com/api-events/'
     try:
         r = requests.post(endpoint, json=payload_dict, timeout=60)
         status = r.status_code
@@ -39,28 +39,6 @@ def buildEvent(row):
     # regular post to get description and title
     sql = "SELECT * FROM wp_posts WHERE id='%d'" % row[0]
     post = queryDB(sql, False)
-
-    # post meta for the bitly stuff
-    # sql = "SELECT * FROM wp_postmeta WHERE post_id='%d' AND meta_key='bitly_url'" % row[0]
-    # bitly_url = queryDB(sql, False)
-    # if bitly_url:
-    #     bitly_url = bitly_url[3]
-    # else:
-    #     bitly_url = [None, None, None, None]
-
-    # sql = "SELECT * FROM wp_postmeta WHERE post_id='%d' AND meta_key='bitly_hash'" % row[0]
-    # bitly_hash = queryDB(sql, False)
-    # if bitly_hash:
-    #     bitly_hash = bitly_hash[3]
-    # else:
-    #     bitly_hash = [None, None, None, None]
-
-    # sql = "SELECT * FROM wp_postmeta WHERE post_id='%d' AND meta_key='bitly_long_url'" % row[0]
-    # bitly_long_url = queryDB(sql, False)
-    # if bitly_long_url:
-    #     bitly_long_url = bitly_long_url[3]
-    # else:
-    #     bitly_long_url = [None, None, None, None]
 
     event = {'title': post[5].strip(), \
             'content': post[4].strip(), \

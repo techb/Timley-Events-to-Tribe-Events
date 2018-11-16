@@ -9,34 +9,15 @@ Template Name: Move Events API
 K.B. Carte
 Aug 2018
 
-Support ticket, they where no help.
-https://theeventscalendar.com/support/forums/topic/tribe_create_event-not-creating-venues-or-organizer/
-
-As per this other support ticket, it has something to do with user roles? I was able to get around it
-by doing what the guy here did, by creating the Organizers and Venues separately, then putting their IDs in
-the create_event array:
-https://theeventscalendar.com/support/forums/topic/tribe_create_event-not-saving-venue-and-organizer/
-
-
-
 This file is used in conjunction with move_events.py
 
 */
 
-// 'cost' coming from ai1ec db is in weired string
-// example: a:2:{s:4:"cost";s:17:"Tickets $20 - $30";s:7:"is_free";b:0;}
-function costConvert($cost){
-    $matches = array();
-    if( preg_match('/:"cost";s:[0-9]+:"(.*)";s/', $cost, $matches) ){
-        return $matches[1];
-    }
-}
 
-// I would reather use $_POST but couldn't get it to work
-// might be a php version issue or something
 $data = json_decode( file_get_contents('php://input') );
-@$data->cost = costConvert($data->cost);
+$data->cost = unserialize($data->cost)['cost'];
 
+// Simple dirty check to see if the data is at least the right kind
 if(empty($data->title)){
     echo '<img src="https://img.memecdn.com/morphius-404_o_1938383.jpg" >';
     die();
